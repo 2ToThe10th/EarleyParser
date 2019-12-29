@@ -1,5 +1,7 @@
 # EarleyParser
 
+[![Build Status](https://travis-ci.com/2ToThe10th/EarleyParser.svg?token=3S6xWbBvu4EyXfDwhGsF&branch=master)](https://travis-ci.com/2ToThe10th/EarleyParser)
+
 #### Запуск:
 
 Для того чтобы запустить тесты,
