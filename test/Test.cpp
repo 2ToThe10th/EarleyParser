@@ -210,3 +210,152 @@ TEST(TwoCorrectBracketSequence, Wrong) {
   std::string str = "(aabbab()(ab))(a)(b((a()()b)))";
   EXPECT_EQ(parser->CheckWord(str), 0);
 }
+
+TEST(Palindromes, Correct) {
+  auto parser = new EarleyParser();
+
+  std::vector<Rule> rules;
+  rules.emplace_back('S', "A");
+  rules.emplace_back('A', "aAa");
+  rules.emplace_back('A', "a");
+  rules.emplace_back('A', "bAb");
+  rules.emplace_back('A', "b");
+  rules.emplace_back('A', "cAc");
+  rules.emplace_back('A', "c");
+  rules.emplace_back('A', "");
+
+
+  parser->ReadRules(rules);
+  std::string str = "aabbcbbaa";
+  EXPECT_EQ(parser->CheckWord(str), 1);
+}
+
+TEST(Palindromes, Wrong) {
+  auto parser = new EarleyParser();
+
+  std::vector<Rule> rules;
+  rules.emplace_back('S', "A");
+  rules.emplace_back('A', "aAa");
+  rules.emplace_back('A', "a");
+  rules.emplace_back('A', "bAb");
+  rules.emplace_back('A', "b");
+  rules.emplace_back('A', "cAc");
+  rules.emplace_back('A', "c");
+  rules.emplace_back('A', "");
+
+
+  parser->ReadRules(rules);
+  std::string str = "aabbccbbbaa";
+  EXPECT_EQ(parser->CheckWord(str), 0);
+}
+
+TEST(Palindromes, WithD) {
+  auto parser = new EarleyParser();
+
+  std::vector<Rule> rules;
+  rules.emplace_back('S', "A");
+  rules.emplace_back('A', "aAa");
+  rules.emplace_back('A', "a");
+  rules.emplace_back('A', "bAb");
+  rules.emplace_back('A', "b");
+  rules.emplace_back('A', "cAc");
+  rules.emplace_back('A', "c");
+  rules.emplace_back('A', "");
+
+
+  parser->ReadRules(rules);
+  std::string str = "aabbdcdbbaa";
+  EXPECT_EQ(parser->CheckWord(str), 0);
+}
+
+TEST(Palindromes, SecondCorrect) {
+  auto parser = new EarleyParser();
+
+  std::vector<Rule> rules;
+  rules.emplace_back('S', "A");
+  rules.emplace_back('A', "aAa");
+  rules.emplace_back('A', "a");
+  rules.emplace_back('A', "bAb");
+  rules.emplace_back('A', "b");
+  rules.emplace_back('A', "cAc");
+  rules.emplace_back('A', "c");
+  rules.emplace_back('A', "");
+
+
+  parser->ReadRules(rules);
+  std::string str = "aabbccbbaa";
+  EXPECT_EQ(parser->CheckWord(str), 1);
+}
+
+TEST(Palindromes, Empty) {
+  auto parser = new EarleyParser();
+
+  std::vector<Rule> rules;
+  rules.emplace_back('S', "A");
+  rules.emplace_back('A', "aAa");
+  rules.emplace_back('A', "a");
+  rules.emplace_back('A', "bAb");
+  rules.emplace_back('A', "b");
+  rules.emplace_back('A', "cAc");
+  rules.emplace_back('A', "c");
+  rules.emplace_back('A', "");
+
+
+  parser->ReadRules(rules);
+  std::string str = "";
+  EXPECT_EQ(parser->CheckWord(str), 1);
+}
+
+TEST(ArithmeticExpressions, One) {
+  auto parser = new EarleyParser();
+
+  std::vector<Rule> rules;
+  rules.emplace_back('S', "A");
+  rules.emplace_back('A', "(A)");
+  rules.emplace_back('A', "A*A");
+  rules.emplace_back('A', "A+A");
+  rules.emplace_back('A', "a");
+  rules.emplace_back('A', "1");
+  rules.emplace_back('A', "0");
+
+
+  parser->ReadRules(rules);
+  std::string str = "1";
+  EXPECT_EQ(parser->CheckWord(str), 1);
+}
+
+TEST(ArithmeticExpressions, Correct) {
+  auto parser = new EarleyParser();
+
+  std::vector<Rule> rules;
+  rules.emplace_back('S', "A");
+  rules.emplace_back('A', "(A)");
+  rules.emplace_back('A', "A*A");
+  rules.emplace_back('A', "A+A");
+  rules.emplace_back('A', "a");
+  rules.emplace_back('A', "1");
+  rules.emplace_back('A', "0");
+
+
+  parser->ReadRules(rules);
+  std::string str = "a*a*a+1*a+0*(a+a)";
+  EXPECT_EQ(parser->CheckWord(str), 1);
+}
+
+TEST(ArithmeticExpressions, Wrong) {
+  auto parser = new EarleyParser();
+
+  std::vector<Rule> rules;
+  rules.emplace_back('S', "A");
+  rules.emplace_back('A', "(A)");
+  rules.emplace_back('A', "A*A");
+  rules.emplace_back('A', "A+A");
+  rules.emplace_back('A', "a");
+  rules.emplace_back('A', "1");
+  rules.emplace_back('A', "0");
+
+
+  parser->ReadRules(rules);
+  std::string str = "a*a*a+1*a+0*(aaa+a)";
+  EXPECT_EQ(parser->CheckWord(str), 0);
+}
