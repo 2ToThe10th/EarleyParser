@@ -30,15 +30,6 @@ bool EarleyParser::CheckWord(std::string &str) {
       Complete(D, i, is_changed);
     }
   }
-/*
-  for (auto &i : D) {
-    std::cout << "|||||||||||||||||||" << std::endl;
-    for (auto &j : i) {
-      std::cout << j.rule->from << ' ' << j.rule->to << "   " << j.position
-                << ' ' << j.start << std::endl;
-    }
-  }
-*/
   for (auto &i : D.back()) {
     if (i.rule == &rules_.front() && i.position == 1 && i.start == 0) {
       return true;
