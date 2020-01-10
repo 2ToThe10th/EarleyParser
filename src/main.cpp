@@ -36,11 +36,6 @@ int main() {
     rules.emplace_back(from[0], to);
   }
 
-//  rules.emplace_back('S', "A");
-//  rules.emplace_back('A', "");
-//  rules.emplace_back('A', "(A)A");
-//  rules.emplace_back('A', "aAbA");
-
   parser->ReadRules(rules);
 
   while (true) {
